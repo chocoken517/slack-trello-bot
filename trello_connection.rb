@@ -1,4 +1,5 @@
 require 'trello'
+
 class TrelloConnection
   def initialize
     Trello.configure do |config|
@@ -20,7 +21,7 @@ class TrelloConnection
   def list_names
     text = ''
     @board.lists.each do |value|
-      next if value.name.match(/^skip/)
+      next if value.name =~ /^skip/
       text << value.name + '\n'
     end
     text
