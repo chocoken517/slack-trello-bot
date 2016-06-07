@@ -19,14 +19,16 @@ end
 
 client.on :message do |data|
   logger.info data
+  messages = data.text.split(' ')
+  next if ENV['SLACK_BOT_NAME'] != messages[0]
 
   client.typing channel: data.channel
 
-  case data.text
-  when ENV['SLACK_BOT_NAME'] + ' hi' then
-    client.message channel: data.channel, text: "Hi <@#{data.user}>!"
-  when /^#{ENV['SLACK_BOT_NAME']}/ then
-    client.message channel: data.channel, text: "Sorry <@#{data.user}>, what?"
+  trello = TrelloConnection.new
+  if %w(help h 助けて 助けろ).include?(messages[1])
+    client.message channel: data.channel, text: trello.help
+  else
+    client.message channel: data.channel, text: trello.reply(data.user, messages)
   end
 end
 
