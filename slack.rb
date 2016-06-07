@@ -1,7 +1,7 @@
 require 'dotenv'
 Dotenv.load
-require './trello_connection'
 require 'slack-ruby-client'
+require './trello_connection'
 
 fail 'Missing ENV[SLACK_API_TOKEN]!' unless ENV.key?('SLACK_API_TOKEN')
 
@@ -19,13 +19,13 @@ end
 
 client.on :message do |data|
   messages = data.text.split(' ')
-  next if ENV['SLACK_BOT_NAME'] != messages[0]
+  next unless [ENV['SLACK_BOT_NAME'], "@#{ENV['SLACK_BOT_NAME']}", "@#{ENV['SLACK_BOT_NAME']}:"].include?(messages[0])
 
   client.typing channel: data.channel
 
   trello = TrelloConnection.new
-  if %w(help h 助けて 助けろ).include?(messages[1])
-    client.message channel: data.channel, text: trello.help
+  if %w(help h 助けて 助けろ た).include?(messages[1])
+    client.message channel: data.channel, text: trello.help(data.user)
   else
     client.message channel: data.channel, text: trello.reply(data.user, messages)
   end
