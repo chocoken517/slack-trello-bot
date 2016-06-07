@@ -18,7 +18,6 @@ client.on :hello do
 end
 
 client.on :message do |data|
-  logger.info data
   messages = data.text.split(' ')
   next if ENV['SLACK_BOT_NAME'] != messages[0]
 
