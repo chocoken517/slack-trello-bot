@@ -36,3 +36,5 @@ build/
 .rvmrc
 
 .env
+
+/logs/
