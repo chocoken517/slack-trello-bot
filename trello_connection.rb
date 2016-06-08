@@ -22,7 +22,7 @@ class TrelloConnection
     return content(user, messages[1]) if messages[2].nil?
     id = id(messages[2])
     return not_understand(user, messages[2]) if id.nil?
-    "<@#{user}>\r\n#{messages[2]}\r\n\r\n```#{desc(id)}```"
+    "<@#{user}>\r\n#{messages[2]}\r\n\r\n```#{description(id)}```"
   end
 
   def content(user, name=nil)
@@ -46,7 +46,7 @@ class TrelloConnection
   def not_understand(user, message)
     Trello::Card.create(name: message, list_id: ENV['TRELLO_LIST_NOT_UNDERSTAND'])
     text = "<@#{user}>\r\n"
-    text << '私には理解できませんので、管理者にお伝えしておきます。\r\n'
+    text << "私には理解できませんので、管理者にお伝えしておきます。\r\n"
     text << '#adm-contactにお問い合わせしてください。'
     text
   end
@@ -62,7 +62,7 @@ class TrelloConnection
     @lists = Trello::List.find(id).cards
   end
 
-  def desc(id)
+  def description(id)
     Trello::Card.find(id).desc
   end
 end
