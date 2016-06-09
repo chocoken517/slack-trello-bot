@@ -33,6 +33,7 @@ class TrelloConnection
       next if value.name =~ /^skip/
       text << value.name + "\r\n"
     end
+    text.strip!
     text << ' ``` '
     text << '下記のフォーマットでお問い合わせしてみてー' + "\r\n\r\n"
     text << '```'
