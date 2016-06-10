@@ -48,7 +48,7 @@ class TrelloConnection
     Trello::Card.create(name: message, list_id: ENV['TRELLO_LIST_NOT_UNDERSTAND'])
     text = "<@#{user}>\r\n"
     text << "私には理解できませんので、管理者にお伝えしておきます。\r\n"
-    text << '#adm-contactにお問い合わせしてください。'
+    text << ' #adm-contact にお問い合わせしてください。'
     text
   end
 
