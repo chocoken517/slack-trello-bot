@@ -1,0 +1,7 @@
+export TRELLO_CONSUMER_KEY=consumer-key
+export TRELLO_CONSUMER_SECRET=consumer-secret
+export TRELLO_OAUTH_TOKEN=oauth-token
+export TRELLO_BOARD=board
+export TRELLO_LIST_NOT_UNDERSTAND=not-understand-list-name
+export SLACK_API_TOKEN=xoxb-api-token
+export SLACK_BOT_NAME=bot

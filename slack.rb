@@ -1,5 +1,3 @@
-require 'dotenv'
-Dotenv.load
 require 'slack-ruby-client'
 require './trello_connection'
 
@@ -18,8 +16,8 @@ client.on :hello do
 end
 
 client.on :message do |data|
+  next if data.text.match(/^(#{ENV['SLACK_BOT_NAME']}|@#{ENV['SLACK_BOT_NAME']}|@#{ENV['SLACK_BOT_NAME']}:)/).nil?
   messages = data.text.split(' ')
-  next unless [ENV['SLACK_BOT_NAME'], "<@#{ENV['SLACK_BOT_ID']}>", "<@#{ENV['SLACK_BOT_ID']}>:"].include?(messages[0])
   logger.info data.text
   client.typing channel: data.channel
 
