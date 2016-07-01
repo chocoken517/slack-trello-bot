@@ -18,6 +18,7 @@ client.on :hello do
 end
 
 client.on :message do |data|
+  next if data.text.blank?
   next unless data.text.start_with?(ENV['SLACK_BOT_NAME'], "<@#{ENV['SLACK_BOT_ID']}>")
   messages = data.text.split(' ')
   logger.info data.text
